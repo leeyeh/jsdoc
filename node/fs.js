@@ -58,6 +58,12 @@ exports.copyFileSync = function(inFile, outDir, fileName) {
     return fs.closeSync(write);
 };
 
+var alwaysOverride = {
+    'copyFileSync': true
+};
+
 Object.keys(fs).forEach(function(key) {
-    exports[key] = fs[key];
+    if (!alwaysOverride[key]) {
+        exports[key] = fs[key];
+    }
 });
